@@ -14,7 +14,7 @@ exports.getBootcamps = async (req, res, next) => {
     });
     
   } catch (err) {
-    res.status(400).json({ success: false});
+    next(err);
   }
 }
 
@@ -23,7 +23,6 @@ exports.getBootcamps = async (req, res, next) => {
 // @access Public
 exports.getBootcamp = async (req, res, next) => {
   try {
-    console.log(req.params.id)
     const bootcamp = await Bootcamp.findById(req.params.id);
 
     if(!bootcamp){
@@ -32,7 +31,7 @@ exports.getBootcamp = async (req, res, next) => {
     
     res.status(200).json({ success: true, data: bootcamp });
   } catch (err) {
-    res.status(400).json({ success: false});
+    next(err);
   }
 }
 
@@ -47,7 +46,7 @@ exports.createBootcamp = async (req, res, next) => {
       data: bootcamp,
     });
   } catch (err) {
-    res.status(400).json({ success: false});
+    next(err);
   }
 }
 
@@ -67,7 +66,7 @@ exports.updateBootcamp = async (req, res, next) => {
 
     res.status(200).json({ success: true, data: bootcamp });
   } catch (err) {
-    res.status(400).json({ success: false });
+    next(err);
   }
 }
 
@@ -84,6 +83,6 @@ exports.deleteBootcamp = async (req, res, next) => {
 
     res.status(200).json({ success: true, data: {} })
   } catch (err) {
-    res.status(400).json({ success: false });
+    next(err);
   }
 }
