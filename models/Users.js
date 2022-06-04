@@ -19,7 +19,7 @@ const UserScheme = new mongoose.Schema({
   },
   role: {
     type: String,
-    enum: ['user', 'publisher'],
+    enum: ['user', 'publisher', 'admin'],
     default: 'user',
   },
   password: {
@@ -38,7 +38,7 @@ const UserScheme = new mongoose.Schema({
 
 // Encrypt password using bcrypt
 UserScheme.pre('save', async function (next) {
-  if(!this.isModified('password')){
+  if (!this.isModified('password')) {
     next();
   }
 
@@ -73,6 +73,6 @@ UserScheme.methods.getResetPasswordToken = function () {
   this.resetPasswordExpire = Date.now() + 10 * 60 * 1000;
 
   return resetToken;
-}
+};
 
 module.exports = mongoose.model('User', UserScheme);
